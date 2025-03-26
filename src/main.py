@@ -1,8 +1,7 @@
 from textnode import *
 
 def main():
-    test = TextNode('This is some anchor text', TextType(5), 'https://www.boot.dev')
-    test_repr = test.__repr__
-    print(test_repr)
+    test = TextNode('This is some anchor text', TextType.LINK, 'https://www.boot.dev')
+    print(test)
 
 main()

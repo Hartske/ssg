@@ -8,6 +8,7 @@ from markdown_to_blocks import *
 def markdown_to_html_node(markdown):
     blocks = markdown_to_blocks(markdown)
     parent_node = ParentNode("div", [])
+    
 
     for block in blocks:
         block_type = block_to_block_type(block)
@@ -20,14 +21,17 @@ def markdown_to_html_node(markdown):
             parent_node.children.append(heading_node)
         # Paragraph
         elif block_type is BlockType.PARAGRAPH:
-            children = text_to_children(block)
+            text = block.replace('\n', ' ')
+            children = text_to_children(text)
             paragraph_node = ParentNode(f"p", children)
             parent_node.children.append(paragraph_node)
         # Code
         elif block_type is BlockType.CODE:
             text = block.strip()
             if text.startswith("```") and text.endswith("```"):
-                text = text[3:-3].strip()
+                text = text[3:-3].lstrip()
+            if not text.endswith('\n'):
+                text = text + '\n'
             text_node = TextNode(text, TextType.TEXT)
             content = text_node_to_html_node(text_node)
             code_node = ParentNode('code', [content])

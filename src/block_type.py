@@ -12,7 +12,7 @@ class BlockType(Enum):
 def block_to_block_type(block):
     if re.search(r'^#{1,6}\s', block):
         return BlockType.HEADING
-    if re.search(r"^`{3}(.*?)`{3}$", block):
+    if block.startswith("```") and block.endswith("```"):
         return BlockType.CODE
     if re.search(r'^>', block, flags=re.MULTILINE):
         return BlockType.QUOTE

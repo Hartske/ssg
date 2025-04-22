@@ -1,7 +1,7 @@
 from textnode import *
 from htmlnode import *
 from copystatic import copy_files
-from gencontent import generate_page
+from gencontent import generate_page_recursive
 import os
 import shutil
 
@@ -19,10 +19,10 @@ def main():
     copy_files(dir_path_static, dir_path_public)
 
     print('~ Generating pages...')
-    generate_page(
-        os.path.join(dir_path_content, "index.md"),
+    generate_page_recursive(
+        dir_path_content,
         template_path,
-        os.path.join(dir_path_public, "index.html")
+        dir_path_public
     )
 
 main()
